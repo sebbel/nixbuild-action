@@ -74,7 +74,6 @@ runs:
       run: ${{ github.action_path }}/nixbuild-action.sh
       shell: bash
       env:
-        INPUTS_JSON: ${{ toJSON(inputs) }}
         NIXBUILD_SSH_KEY: ${{ inputs.nixbuild_ssh_key }}
         ACTION_LIB: ${{ github.action_path }}/lib
 
