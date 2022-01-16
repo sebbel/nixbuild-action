@@ -38,21 +38,6 @@ EOF
 
 nixbuildnet_env=""
 
-for setting in \
-  allow-override \
-  always-substitute \
-  cache-build-failures \
-  cache-build-timeouts \
-  keep-builds-running \
-  never-substitute
-do
-  val="$(printenv INPUTS_JSON | jq -r ".\"$setting\"")"
-  val="${val/\'/\\\'}"
-  if [ -n "$val" ]; then
-    nixbuildnet_env="$nixbuildnet_env NIXBUILDNET_$(echo "$setting" | tr a-z- A-Z_)='$val'"
-  fi
-done
-
 # Propagate selected GitHub Actions environment variables as nixbuild.net tags
 # https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
 for tag in \
