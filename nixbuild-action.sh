@@ -34,29 +34,6 @@ Host eu.nixbuild.net
 EOF
 
 
-# Setup nixbuild.net environment
-
-nixbuildnet_env=""
-
-# Propagate selected GitHub Actions environment variables as nixbuild.net tags
-# https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables
-for tag in \
-  GITHUB_WORKFLOW \
-  GITHUB_RUN_ID \
-  GITHUB_RUN_NUMBER \
-  GITHUB_ACTION \
-  GITHUB_ACTIONS \
-  GITHUB_REPOSITORY \
-  GITHUB_SHA
-do
-  val="$(printenv $tag)"
-  val="${val/\'/\\\'}"
-  nixbuildnet_env="$nixbuildnet_env NIXBUILDNET_TAG_$tag='$val'"
-done
-
-echo "  SetEnv$nixbuildnet_env" >> "$SSH_CONFIG_FILE"
-
-
 # Append ssh config to system config
 sudo mkdir -p /etc/ssh
 sudo touch /etc/ssh/ssh_config
